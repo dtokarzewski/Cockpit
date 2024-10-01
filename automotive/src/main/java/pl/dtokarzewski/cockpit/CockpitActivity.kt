@@ -53,6 +53,8 @@ class CockpitActivity : AppCompatActivity() {
             Pair("29 Settings", R.drawable.ic_settings),
             Pair("30 Podcasts", R.drawable.ic_play),
             Pair("31 Voice assistant", R.drawable.ic_assistant),
+            Pair("32 Calendar", R.drawable.ic_calendar),
+//            Pair("33 Message", R.drawable.ic_message),
         )
 
         adapter = CockpitAdapter(menuItems)
@@ -65,7 +67,9 @@ class CockpitActivity : AppCompatActivity() {
                 columns = 5,
                 orientation = CockpitLayoutManager.HORIZONTAL,
                 reverseLayout = false
-            )
+            ).apply {
+                addItemDecoration(CockpitOffsetItemDecoration(rows = 2, columns = 5))
+            }
             adapter = this@CockpitActivity.adapter
             snapHelper.attachToRecyclerView(this)
         }
