@@ -7,13 +7,21 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import kotlin.math.abs
 
+/**
+ * SnapHelper that snaps fixed number of items at once. It works both for horizontal and vertical grids.
+ *
+ * In conjunction with CockpitLayoutManager, when same number of rows and columns set in both, SnapHelper
+ * will snap entire page at once.
+ * @param rowsPerSnap number of rows that should be snapped at once.
+ * @param columnsPerSnap number of columns that should be snapped at once.
+ */
 class CockpitSnapHelper(
     private val rowsPerSnap: Int = 1,
     private val columnsPerSnap: Int = 1,
 ) : PagerSnapHelper() {
 
-    private var mVerticalHelper: OrientationHelper? = null
-    private var mHorizontalHelper: OrientationHelper? = null
+    private var verticalHelper: OrientationHelper? = null
+    private var horizontalHelper: OrientationHelper? = null
 
     override fun calculateDistanceToFinalSnap(
         layoutManager: RecyclerView.LayoutManager,
@@ -63,7 +71,7 @@ class CockpitSnapHelper(
         return findVisibleCornerPosition(layoutManager = layoutManager)
     }
 
-    // Position of first visible item that starts one of pages
+    // Position of first visible item that should start current of next page
     private fun findVisibleCornerPosition(layoutManager: RecyclerView.LayoutManager): Int {
         val childCount = layoutManager.childCount
         if (childCount == 0) {
@@ -110,18 +118,18 @@ class CockpitSnapHelper(
     }
 
     private fun getVerticalHelper(layoutManager: RecyclerView.LayoutManager): OrientationHelper {
-        if (mVerticalHelper == null || mVerticalHelper!!.layoutManager !== layoutManager) {
-            mVerticalHelper = OrientationHelper.createVerticalHelper(layoutManager)
+        if (verticalHelper == null || verticalHelper?.layoutManager != layoutManager) {
+            verticalHelper = OrientationHelper.createVerticalHelper(layoutManager)
         }
-        return mVerticalHelper!!
+        return verticalHelper!!
     }
 
     private fun getHorizontalHelper(
         layoutManager: RecyclerView.LayoutManager
     ): OrientationHelper {
-        if (mHorizontalHelper == null || mHorizontalHelper!!.layoutManager !== layoutManager) {
-            mHorizontalHelper = OrientationHelper.createHorizontalHelper(layoutManager)
+        if (horizontalHelper == null || horizontalHelper?.layoutManager != layoutManager) {
+            horizontalHelper = OrientationHelper.createHorizontalHelper(layoutManager)
         }
-        return mHorizontalHelper!!
+        return horizontalHelper!!
     }
 }

@@ -7,6 +7,14 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+/** Layout Manager based on GridLayoutManager, with added configuration of number of rows and columns.
+ * It sets span size to take entire space with given number of rows and columns.
+ * @param context Current context, will be used to access resources.
+ * @param rows number of rows in the grid.
+ * @param columns number of columns in the grid.
+ * @param orientation orientation of the grid, either HORIZONTAL or VERTICAL.
+ * @param reverseLayout when set to true, layouts from end to start.
+ */
 class CockpitLayoutManager(
     context: Context,
     private val rows: Int,

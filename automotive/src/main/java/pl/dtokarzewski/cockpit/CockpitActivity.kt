@@ -2,14 +2,11 @@ package pl.dtokarzewski.cockpit
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.SnapHelper
 import pl.dtokarzewski.cockpit.databinding.ActivityCockpitBinding
 
 class CockpitActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCockpitBinding
-    private lateinit var adapter: CockpitAdapter
-    private lateinit var snapHelper: SnapHelper
     private var scrollToIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,24 +51,32 @@ class CockpitActivity : AppCompatActivity() {
             Pair("30 Podcasts", R.drawable.ic_play),
             Pair("31 Voice assistant", R.drawable.ic_assistant),
             Pair("32 Calendar", R.drawable.ic_calendar),
-//            Pair("33 Message", R.drawable.ic_message),
+            Pair("33 Message", R.drawable.ic_message),
         )
 
-        adapter = CockpitAdapter(menuItems)
-        snapHelper = CockpitSnapHelper(rowsPerSnap = 2, columnsPerSnap = 5)
+        val adapter = CockpitAdapter(menuItems)
+        val snapHelper = CockpitSnapHelper(
+            rowsPerSnap = 2,
+            columnsPerSnap = 5,
+        )
+        val itemDecoration = CockpitOffsetItemDecoration(
+            rows = 2,
+            columns = 5,
+            orientation = CockpitLayoutManager.HORIZONTAL,
+        )
+        val layoutManager = CockpitLayoutManager(
+            context = this@CockpitActivity,
+            rows = 2,
+            columns = 5,
+            orientation = CockpitLayoutManager.HORIZONTAL,
+            reverseLayout = false,
+        )
 
         binding.grid.apply {
-            layoutManager = CockpitLayoutManager(
-                context = this@CockpitActivity,
-                rows = 2,
-                columns = 5,
-                orientation = CockpitLayoutManager.HORIZONTAL,
-                reverseLayout = false
-            ).apply {
-                addItemDecoration(CockpitOffsetItemDecoration(rows = 2, columns = 5))
-            }
-            adapter = this@CockpitActivity.adapter
+            setLayoutManager(layoutManager)
             snapHelper.attachToRecyclerView(this)
+            addItemDecoration(itemDecoration)
+            setAdapter(adapter)
         }
 
         // Used for smooth scrolling test
