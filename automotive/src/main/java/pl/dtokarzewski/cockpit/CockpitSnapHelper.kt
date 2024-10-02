@@ -100,7 +100,7 @@ class CockpitSnapHelper(
         val distanceToEnd = distanceToEnd(targetView = targetView, helper = helper)
         Log.d(
             "CockpitSnapHelper",
-            "distanceToStart = $distanceToStart, distanceToEnd = $distanceToEnd, index: $position"
+            "TargetView distanceToStart = $distanceToStart, distanceToEnd = $distanceToEnd, index: $position"
         )
         return when {
             abs(distanceToStart) < abs(distanceToEnd) -> distanceToStart // this view should be start of the page

@@ -54,7 +54,7 @@ class CockpitActivity : AppCompatActivity() {
             Pair("33 Message", R.drawable.ic_message),
         )
 
-        val adapter = CockpitAdapter(menuItems)
+        val adapter = CockpitAdapter().apply { submitList(menuItems) }
         val snapHelper = CockpitSnapHelper(
             rowsPerSnap = 2,
             columnsPerSnap = 5,
@@ -77,6 +77,7 @@ class CockpitActivity : AppCompatActivity() {
             snapHelper.attachToRecyclerView(this)
             addItemDecoration(itemDecoration)
             setAdapter(adapter)
+            adapter.itemTouchHelper.attachToRecyclerView(this)
         }
 
         // Used for smooth scrolling test
