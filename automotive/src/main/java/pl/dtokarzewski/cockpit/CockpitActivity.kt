@@ -7,7 +7,6 @@ import pl.dtokarzewski.cockpit.databinding.ActivityCockpitBinding
 class CockpitActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCockpitBinding
-    private var scrollToIndex = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,35 +22,34 @@ class CockpitActivity : AppCompatActivity() {
             Pair("2 Spotify", R.drawable.ic_play),
             Pair("3 News", R.drawable.ic_news),
             Pair("4 Calendar", R.drawable.ic_calendar),
-            Pair("5 Climate", R.drawable.ic_air),
-            Pair("6 Phone", R.drawable.ic_phone),
-            Pair("7 Message", R.drawable.ic_message),
-            Pair("8 Waze", R.drawable.ic_map),
-            Pair("9 YT Music", R.drawable.ic_play),
-            Pair("10 Car", R.drawable.ic_car),
-            Pair("11 Radio", R.drawable.ic_radio),
-            Pair("12 Zoom", R.drawable.ic_message),
-            Pair("13 Settings", R.drawable.ic_settings),
-            Pair("14 Podcasts", R.drawable.ic_play),
-            Pair("15 Voice assistant", R.drawable.ic_assistant),
-            Pair("16 Messenger", R.drawable.ic_message),
-            Pair("17 Maps", R.drawable.ic_map),
-            Pair("18 Spotify", R.drawable.ic_play),
-            Pair("19 News", R.drawable.ic_news),
-            Pair("20 Calendar", R.drawable.ic_calendar),
-            Pair("21 Climate", R.drawable.ic_air),
-            Pair("22 Phone", R.drawable.ic_phone),
-            Pair("23 Message", R.drawable.ic_message),
-            Pair("24 Waze", R.drawable.ic_map),
-            Pair("25 YT Music", R.drawable.ic_play),
-            Pair("26 Car", R.drawable.ic_car),
-            Pair("27 Radio", R.drawable.ic_radio),
-            Pair("28 Zoom", R.drawable.ic_message),
-            Pair("29 Settings", R.drawable.ic_settings),
-            Pair("30 Podcasts", R.drawable.ic_play),
-            Pair("31 Voice assistant", R.drawable.ic_assistant),
-            Pair("32 Calendar", R.drawable.ic_calendar),
-            Pair("33 Message", R.drawable.ic_message),
+            Pair("5 OneNote", R.drawable.ic_note),
+            Pair("6 Climate", R.drawable.ic_air),
+            Pair("7 Phone", R.drawable.ic_phone),
+            Pair("8 Message", R.drawable.ic_message),
+            Pair("9 Booking", R.drawable.ic_home),
+            Pair("10 Waze", R.drawable.ic_map),
+            Pair("11 YT Music", R.drawable.ic_play),
+            Pair("12 Car", R.drawable.ic_car),
+            Pair("13 Youtube", R.drawable.ic_play),
+            Pair("14 Radio", R.drawable.ic_radio),
+            Pair("15 Zoom", R.drawable.ic_message),
+            Pair("16 Settings", R.drawable.ic_settings),
+            Pair("17 Podcasts", R.drawable.ic_play),
+            Pair("18 Notion", R.drawable.ic_note),
+            Pair("19 Voice assistant", R.drawable.ic_assistant),
+            Pair("20 Weather", R.drawable.ic_weather),
+            Pair("21 Google Play", R.drawable.ic_play),
+            Pair("22 Signal", R.drawable.ic_message),
+            Pair("23 Wallet", R.drawable.ic_card),
+            Pair("24 Instagram", R.drawable.ic_air),
+            Pair("25 Traffic info", R.drawable.ic_car),
+            Pair("26 Tasks", R.drawable.ic_note),
+            Pair("27 Video recorder", R.drawable.ic_camera),
+            Pair("28 Home", R.drawable.ic_home),
+            Pair("29 SmartThings", R.drawable.ic_smart),
+            Pair("30 Teams", R.drawable.ic_calendar),
+            Pair("31 Alexa", R.drawable.ic_assistant),
+            Pair("32 Keep", R.drawable.ic_note),
         )
 
         val adapter = CockpitAdapter().apply { submitList(menuItems) }
@@ -78,12 +76,6 @@ class CockpitActivity : AppCompatActivity() {
             addItemDecoration(itemDecoration)
             setAdapter(adapter)
             adapter.itemTouchHelper.attachToRecyclerView(this)
-        }
-
-        // Used for smooth scrolling test
-        binding.fab.setOnClickListener {
-            scrollToIndex = scrollToIndex xor menuItems.size
-            binding.grid.smoothScrollToPosition(scrollToIndex)
         }
     }
 }

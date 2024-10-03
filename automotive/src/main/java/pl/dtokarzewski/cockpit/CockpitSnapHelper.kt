@@ -5,6 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import kotlin.math.abs
 
 /**
@@ -22,6 +23,25 @@ class CockpitSnapHelper(
 
     private var verticalHelper: OrientationHelper? = null
     private var horizontalHelper: OrientationHelper? = null
+    private var recyclerView: RecyclerView? = null
+
+    private val scrollListener = object : OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+
+        }
+    }
+
+    override fun attachToRecyclerView(recyclerView: RecyclerView?) {
+        super.attachToRecyclerView(recyclerView)
+        if (this.recyclerView == recyclerView) {
+            return  // nothing to do
+        }
+        this.recyclerView?.removeOnScrollListener(scrollListener)
+        this.recyclerView = recyclerView
+        if (this.recyclerView != null) {
+            this.recyclerView?.addOnScrollListener(scrollListener)
+        }
+    }
 
     override fun calculateDistanceToFinalSnap(
         layoutManager: RecyclerView.LayoutManager,

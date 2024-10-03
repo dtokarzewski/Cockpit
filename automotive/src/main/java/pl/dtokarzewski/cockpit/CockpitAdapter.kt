@@ -38,29 +38,21 @@ class CockpitAdapter : ListAdapter<Pair<String, Int>, CockpitAdapter.MenuItemHol
             viewHolder: RecyclerView.ViewHolder,
             target: RecyclerView.ViewHolder
         ): Boolean {
+            oldPosition = viewHolder.getBindingAdapterPosition()
             newPosition = target.getBindingAdapterPosition()
-            return false
+            if (oldPosition != -1 && newPosition != -1 && oldPosition != newPosition) {
+                val updateList = currentList.toMutableList()
+                val item = updateList[oldPosition]
+                updateList.removeAt(oldPosition)
+                updateList.add(newPosition, item)
+                submitList(updateList)
+                return true
+            } else {
+                return false
+            }
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
-
-        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-            super.onSelectedChanged(viewHolder, actionState)
-            when (actionState) {
-                ItemTouchHelper.ACTION_STATE_DRAG -> {
-                    viewHolder?.bindingAdapterPosition?.let { oldPosition = it }
-                }
-                ItemTouchHelper.ACTION_STATE_IDLE -> {
-                    if (oldPosition != -1 && newPosition != -1 && oldPosition != newPosition) {
-                        val updateList = currentList.toMutableList()
-                        val item = updateList[oldPosition]
-                        updateList.removeAt(oldPosition)
-                        updateList.add(newPosition, item)
-                        submitList(updateList)
-                    }
-                }
-            }
-        }
     })
 
     object CockpitAdapterDiffUtilCallback : DiffUtil.ItemCallback<Pair<String, Int>>() {
